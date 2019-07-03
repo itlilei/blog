@@ -1,5 +1,6 @@
 ---
 title: Fetch请求
+date: 2029-07-03
 ---
 
 ### 基本的fetch请求
