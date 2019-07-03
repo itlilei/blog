@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[vs code 插件 图片自动上传工具 picgo]]></title>
+    <url>%2F2019%2F07%2F03%2FTools%2Fpicgo%2F</url>
+    <content type="text"><![CDATA[搜索 安装 picgo后 ，点击小齿轮配置github上传如下： 也可以再settings.json中配置： 1234"picgo.picBed.github.repo": "itlilei/name", // 仓库名，格式是username/reponame"picgo.picBed.github.token":"***", "picgo.picBed.github.branch": "master",// 分支名，默认是master"picgo.picBed.current": "github" 详细参数配置介绍可参考官方文档：https://picgo.github.io/PicGo-Doc/zh/guide/config.html#github%E5%9B%BE%E5%BA%8A 快捷键参考： 配置过程中遇到一个坑，github生成的token复制到onenote中，粘贴时默认首字母转换成大写了，导致一直上传失败，怀疑人生 /(ㄒoㄒ)/~~]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>picgo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Fetch请求]]></title>
+    <url>%2F2019%2F07%2F03%2FFE%20%2FFetch%E8%AF%B7%E6%B1%82%2F</url>
+    <content type="text"><![CDATA[基本的fetch请求1234567891011121314151617const options = &#123; method: "POST", // 请求参数 headers: &#123; "Content-Type": "application/json"&#125;, // 设置请求头 或者通过：new Headers(&#123;'Content-Type': 'application/json' &#125;) body: JSON.stringify(&#123;name:'123'&#125;), // 请求参数 credentials: "same-origin", // cookie设置 mode: "cors", // 跨域&#125;fetch('url'，options) .then(function(response) &#123; return response.json(); &#125;) .then(function(myJson) &#123; console.log(myJson); // 响应数据 &#125;).catch(function(err)&#123; console.log(err); // 异常处理 &#125;)]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[My Gallery]]></title>
+    <url>%2F2018%2F07%2F13%2FMy-Gallery%2F</url>
+    <content type="text"><![CDATA[Quick Start1alert(&apos;Hello World!&apos;); Create a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>rest</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World2]]></title>
+    <url>%2F2018%2F07%2F12%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+  </entry>
+</search>
