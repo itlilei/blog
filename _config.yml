@@ -12,7 +12,7 @@ language:
 timezone:
 
 auto_excerpt:
-  enable: true
+  enable: false
   length: 150
 
 # Local search

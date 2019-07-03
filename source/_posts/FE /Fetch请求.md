@@ -27,4 +27,14 @@ fetch('url'，options)
     })
 
 ```
+### 涉及到的对象
+#### 1. Request对象 
+```bash
+const myRequest = new Request('http://localhost/api', {method: 'POST', body: '{"foo":"bar"}'});
+ 
+const myURL = myRequest.url; // http://localhost/api
+const myMethod = myRequest.method; // POST
+const myCred = myRequest.credentials; // omit
+const bodyUsed = myRequest.bodyUsed; // true
 
+```
