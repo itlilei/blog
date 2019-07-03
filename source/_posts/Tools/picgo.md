@@ -1,6 +1,6 @@
 ---
 title: [VS Code] 插件-图片自动上传工具  picgo
-tags: picgo
+tags: VS Code
 categories: 工具
 ---
 

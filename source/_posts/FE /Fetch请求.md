@@ -1,6 +1,8 @@
 ---
 title: Fetch请求
-date: 2029-07-03
+date: 2019-07-03
+tags: js
+categories: 前端
 ---
 
 ### 基本的fetch请求
