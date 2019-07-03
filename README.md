@@ -8,6 +8,6 @@
 `$ hexo generate / hexo g)`
 
 #### 部署
-`$ hexo server / hexo s)`
+`$ hexo deploy / hexo d)`
 
 >hexo命令及其他内容 参考文档 :https://hexo.io/zh-cn/docs/commands
