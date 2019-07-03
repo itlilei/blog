@@ -26,6 +26,6 @@ categories: 工具
 
 ![4.jpg](https://raw.githubusercontent.com/itlilei/pic/master/4.jpg?token=AEM2KM6T5EX2RK4P6L4KL2C5DRLUK)
 
-* 配置过程中遇到一个坑，github生成的token复制到onenote中，粘贴时默认首字母转换成大写了，导致一直上传失败，怀疑人生 /(ㄒoㄒ)/~~
+* *配置过程中遇到一个坑，github生成的token复制到onenote中，粘贴时默认首字母转换成大写了，导致一直上传失败，怀疑人生 /(ㄒoㄒ)/~~*
 
 ![3.jpg](https://raw.githubusercontent.com/itlilei/pic/master/3.jpg?token=AEM2KM2RN4Z6JDKJBDODWBC5DRM6O)
