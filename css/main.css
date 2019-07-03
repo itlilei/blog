@@ -1823,10 +1823,14 @@ pre .javascript .function {
   height: 4px;
   border-radius: 50%;
 <<<<<<< HEAD
+<<<<<<< HEAD
   background: #240b5c;
 =======
   background: #0ecb58;
 >>>>>>> ee4c7229eb0530be166f7ad6ae0afd276fd8ef69
+=======
+  background: #ff8b8f;
+>>>>>>> 257c9e5cb02253c6ba2b3b22f64666a0d8de4595
 }
 .links-of-blogroll {
   font-size: 13px;
