@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>全国购售电交易撮合平台数据统计</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #123456;
+        }
+
+        .box {
+            color: #fff;
+            width: 600px;
+            padding-top: 130px;
+            font-size: 12px;
+            /* border-left: 1px solid #fff; */
+            /* background-color:antiquewhite; */
+        }
+
+        .t1,
+        .t2 {
+            width: 120px;
+            height: 32px;
+            text-align: right;
+        }
+
+        .t4 {
+            width: 110px;
+            height: 32px;
+        }
+
+        .t3 {
+            width: 40px;
+        }
+
+        .rate,
+        .save {
+            margin-left: 40px;
+        }
+
+        h3 {
+            text-align: center;
+            background-color: green;
+        }
+
+        .img {
+            flex:1;
+            display: flex;
+            flex-direction: column;
+    
+        }
+        .item_row{
+            flex:1;
+        }
+        .item_wrap {
+            margin-left: 6px;
+            display: flex;
+            flex-direction: row;
+            font-size: 8px;
+            justify-content:space-around;
+            /* border: 1px solid #FFF; */
+        }
+
+        .item_name {
+            display: inline-block;
+            height: 25px;
+            width: 90px;
+        }
+
+        .wrap_row {
+            flex-direction: column;
+            margin-bottom: 10px;
+            padding-bottom: 4px;
+            border: 1px solid #fff;
+        }
+    </style>
+    <!-- <script type="text/javascript" src="common/j.js"></script>
+    <script src="common/e.js"></script>
+    <script src="common/c.js"></script>
+    <script src="common/l.js"></script> -->
+    <script type="text/javascript" src="https://echarts.baidu.com/examples/vendors/jquery/jquery.js"></script>
+    <script src="https://echarts.baidu.com/examples/vendors/echarts/echarts.min.js?_v_=1553896255267"></script>
+    <script src="https://echarts.baidu.com/examples/vendors/echarts/map/js/china.js?_v_=1553896255267"></script>
+    <script src="http://res.layui.com/layui/release/layer/dist/layer.js?v=3111"></script>
+</head>
+
+<body>
+    <div style="display: flex;">
+        <div id="main" style="flex:1; width:100%; height:1000px;"></div>
+        <div class="box" id="box"></div>
+    </div>
+    <script id="tpl-box" type="text/html">
+        <div style="border: 2px solid #fff;border-right:0;padding-left:8px;padding:16px 0 16px 16px ;">
+                <div>
+                    <span>{{city}}</span>
+                    <span class="rate">校核通过率：{{num_1}}</span>
+                    <span class="save">可节省电费：{{num_2}} 亿元</span>
+                </div>
+                <h3>撮合交易详情</h3>
+                <table>
+                    <tr>
+                        <td class="t1">撮合交易总电量</td>
+                        <td class="t2">{{num_3}} 亿千瓦时</td>
+                        <td class="t1">新能源交易电量</td>
+                        <td class="t2">{{num_4}} 亿千瓦时</td>
+                    </tr>
+                    <tr>
+                        <td class="t1">燃煤标杆电价</td>
+                        <td class="t2">{{num_5}} 元/千瓦时</td>
+                        <td class="t1">平均交易价差</td>
+                        <td class="t2">{{num_6}} 元/千瓦时</td>
+                    </tr>
+                    <tr>
+                        <td class="t1">当月下单量</td>
+                        <td class="t2">{{num_7}} 单</td>
+                        <td class="t1">累计下单量</td>
+                        <td class="t2">{{num_8}} 单</td>
+                    </tr>
+                </table>
+                <h3>平台参与市场主体</h3>
+                <table>
+                    <tr>
+                        <td class="t4">电力用户数量</td>
+                        <td class="t3">{{num_9}} 家</td>
+                        <td class="t4">发电厂数量</td>
+                        <td class="t3">{{num_10}} 家</td>
+                        <td class="t4">售电公司数量</td>
+                        <td class="t3">{{num_11}} 家</td>
+                    </tr>
+                </table>
+                <div class="img">
+                    <img style="width:100%;height:120px;" src="img/trend.jpg" />
+                </div>
+                <div style="display:flex;flex-direction:row; margin-top: 30px;">
+                        <img style="height:170px;width:140px;" src="img/order1.png" />
+                
+                <div class="img">
+                    
+                    <div class="item_row">
+                    <div class="item_wrap">
+                        <div class="wrap_row">
+                            <div>
+                                    <span class="item_name">北京同仁堂集团</span>
+                                    <input type="text" style="width:40px;" value="1500">
+                                    <span>万千瓦时</span>
+                            </div>
+                            <div>
+                                    <span class="item_name">京能电厂</span>
+                                    <input type="text" style="width:40px;" value="0.33">
+                                    <span>元/千瓦时</span>
+                            </div>
+                            <div>05/25   14:58</div>
+                        </div>
+                        <div class="wrap_row">
+                                <div>
+                                        <span class="item_name">河北重型机械厂</span>
+                                        <input type="text" style="width:40px;" value="1200">
+                                        <span>万千瓦时</span>
+                                </div>
+                                <div>
+                                        <span class="item_name">大唐某电厂</span>
+                                        <input type="text" style="width:40px;" value="0.35">
+                                        <span>元/千瓦时</span>
+                                </div>
+                                <div>05/25   12:05</div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="item_row">
+                        <div class="item_wrap">
+                            <div class="wrap_row">
+                                <div>
+                                        <span class="item_name">新乡矿山机械厂</span>
+                                        <input type="text" style="width:40px;" value="3000">
+                                        <span>万千瓦时</span>
+                                </div>
+                                <div>
+                                        <span class="item_name">华能某某电厂</span>
+                                        <input type="text" style="width:40px;" value="0.335">
+                                        <span>元/千瓦时</span>
+                                </div>
+                                <div>05/25   11:30</div>
+                            </div>
+                            <div class="wrap_row">
+                                    <div>
+                                            <span class="item_name">北京亦庄开发区</span>
+                                            <input type="text" style="width:40px;" value="9000">
+                                            <span>万千瓦时</span>
+                                    </div>
+                                    <div>
+                                            <span class="item_name">内蒙古某某电厂</span>
+                                            <input type="text" style="width:40px;" value="0.327">
+                                            <span>元/千瓦时</span>
+                                    </div>
+                                    <div>05/24   10:21</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+            </div>      
+
+                </div>
+            </div>
+    </script>
+    <script>
+        var chart = echarts.init(document.getElementById('main'));
+    </script>
+    <script type="text/javascript" src='platform.js'></script>
+    <script type="text/javascript" src='data/data.js'></script>
+    <script type="text/javascript" src='common/template.js'></script>
+    <script>
+        chart.setOption(option);
+        chart.on('mouseover', function (params) {
+            console.log(params, result)
+            let dt = {
+                city: params.name
+            }
+            let item = platform_data.find(item => {
+                return item.city == params.name
+            })
+            if (item) {
+                document.getElementById('box').innerHTML = template('tpl-box', item)
+            }
+        });
+        chart.on('mouseout', function () {
+            document.getElementById('box').innerHTML = ''
+        });
+    </script>
+</body>
+
+</html>
