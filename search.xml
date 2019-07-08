@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[JS基础（一）]]></title>
+    <url>%2F2019%2F07%2F06%2FFE%20%2FJS%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89%2F</url>
+    <content type="text"></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Promise对象]]></title>
+    <url>%2F2019%2F07%2F05%2FFE%20%2FPromise%E5%AF%B9%E8%B1%A1%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Fetch请求]]></title>
     <url>%2F2019%2F07%2F03%2FFE%20%2FFetch%E8%AF%B7%E6%B1%82%2F</url>
     <content type="text"><![CDATA[基本的fetch请求1234567891011121314151617const options = &#123; method: "POST", // 请求参数 headers: &#123; "Content-Type": "application/json"&#125;, // 设置请求头 或者通过：new Headers(&#123;'Content-Type': 'application/json' &#125;) body: JSON.stringify(&#123;name:'123'&#125;), // 请求参数 credentials: "same-origin", // cookie设置 mode: "cors", // 跨域&#125;fetch('url'，options) .then(function(response) &#123; return response.json(); &#125;) .then(function(myJson) &#123; console.log(myJson); // 响应数据 &#125;).catch(function(err)&#123; console.log(err); // 异常处理 &#125;) fetch 请求返回promise对象 默认情况下，fetch 不会从服务端发送或接收任何 cookies，如果需发送cookie，必须设置 credentials 对象（下面会详细介绍） 涉及到的对象1. Request对象123456const myRequest = new Request('http://localhost/api', &#123;method: 'POST', body: '&#123;"foo":"bar"&#125;'&#125;); const myURL = myRequest.url; // http://localhost/apiconst myMethod = myRequest.method; // POSTconst myCred = myRequest.credentials; // omitconst bodyUsed = myRequest.bodyUsed; // true credentials有三个可选值（官方文档说现在的默认值修改为：same-origin）omit: 从不发送cookies.same-origin: 只有当URL与响应脚本同源才发送 cookies、 HTTP Basic authentication 等验证信息.(浏览器默认值,在旧版本浏览器，例如safari 11依旧是omit，safari 12已更改)include: 不论是不是跨域的请求,总是发送请求资源域在本地的 cookies、 HTTP Basic authentication 等验证信息]]></content>
