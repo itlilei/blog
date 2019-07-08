@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[VS Code 插件-图片自动上传工具 picgo]]></title>
-    <url>%2F2019%2F07%2F03%2FTools%2F%E5%9B%BE%E7%89%87%E8%87%AA%E5%8A%A8%E4%B8%8A%E4%BC%A0%E5%B7%A5%E5%85%B7picgo%2F</url>
-    <content type="text"><![CDATA[搜索 安装 picgo后 ，点击小齿轮配置github上传如下： 也可以再settings.json中配置： 1234"picgo.picBed.github.repo": "itlilei/name", // 仓库名，格式是username/reponame"picgo.picBed.github.token":"***", "picgo.picBed.github.branch": "master",// 分支名，默认是master"picgo.picBed.current": "github" 详细参数配置介绍可参考官方文档：https://picgo.github.io/PicGo-Doc/zh/guide/config.html#github%E5%9B%BE%E5%BA%8A 快捷键参考： 配置过程中遇到一个坑，github生成的token复制到onenote中，粘贴时默认首字母转换成大写了，导致一直上传失败，怀疑人生 /(ㄒoㄒ)/~~]]></content>
+    <title><![CDATA[JS基础（一）]]></title>
+    <url>%2F2019%2F07%2F06%2FFE%20%2FJS%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89%2F</url>
+    <content type="text"></content>
       <categories>
-        <category>工具</category>
+        <category>前端</category>
       </categories>
       <tags>
-        <tag>VS Code</tag>
+        <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Promise对象]]></title>
+    <url>%2F2019%2F07%2F05%2FFE%20%2FPromise%E5%AF%B9%E8%B1%A1%2F</url>
+    <content type="text"><![CDATA[]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -20,6 +31,17 @@
       </categories>
       <tags>
         <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[VS Code 插件-图片自动上传工具 picgo]]></title>
+    <url>%2F2019%2F07%2F03%2FTools%2F%E5%9B%BE%E7%89%87%E8%87%AA%E5%8A%A8%E4%B8%8A%E4%BC%A0%E5%B7%A5%E5%85%B7picgo%2F</url>
+    <content type="text"><![CDATA[搜索 安装 picgo后 ，点击小齿轮配置github上传如下： 也可以再settings.json中配置： 1234"picgo.picBed.github.repo": "itlilei/name", // 仓库名，格式是username/reponame"picgo.picBed.github.token":"***", "picgo.picBed.github.branch": "master",// 分支名，默认是master"picgo.picBed.current": "github" 详细参数配置介绍可参考官方文档：https://picgo.github.io/PicGo-Doc/zh/guide/config.html#github%E5%9B%BE%E5%BA%8A 快捷键参考： 配置过程中遇到一个坑，github生成的token复制到onenote中，粘贴时默认首字母转换成大写了，导致一直上传失败，怀疑人生 /(ㄒoㄒ)/~~]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>VS Code</tag>
       </tags>
   </entry>
 </search>
