@@ -89,7 +89,7 @@
 
 
 
-  <meta name="keywords" content="hexo,git,">
+  <meta name="keywords" content="git,hexo,">
 
 
 
@@ -100,19 +100,19 @@
 
 
 
-<meta name="description" content="问题描述：提交代码到github后，在新的电脑clone项目时发现之前配置的样式丢失，然后才发现主题文件是空的。 解决办法：1git rm --cached themes/next #next为你的主题名 然后重新提交即可 问题原因：因为我的项目是clone的官方项目，相当于一个子项目，这里用到了git 的子模块（git submodule）功能，子模块只是一个 HEAD 指针，指向子模块的 co">
-<meta name="keywords" content="hexo,git">
+<meta name="description" content="问题描述：提交代码到github后，在新的电脑clone项目时发现之前配置的样式丢失，然后才发现主题文件是空的。 解决办法：1git rm --cached themes/next #next为你的主题名 然后重新提交即可（  如果还不行，看下改目录下是否有.git 隐藏文件夹，删除后 重新执行清除缓存操作。） 问题原因：因为我的项目是clone的官方项目，相当于一个子项目，这里用到了git 的子">
+<meta name="keywords" content="git,hexo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="解决hexo无法提交备份theme主题目录">
 <meta property="og:url" content="http://yoursite.com/2019/07/09/Tools/hexo主题theme无法提交/index.html">
 <meta property="og:site_name" content="Leroy&#39;s blog">
-<meta property="og:description" content="问题描述：提交代码到github后，在新的电脑clone项目时发现之前配置的样式丢失，然后才发现主题文件是空的。 解决办法：1git rm --cached themes/next #next为你的主题名 然后重新提交即可 问题原因：因为我的项目是clone的官方项目，相当于一个子项目，这里用到了git 的子模块（git submodule）功能，子模块只是一个 HEAD 指针，指向子模块的 co">
+<meta property="og:description" content="问题描述：提交代码到github后，在新的电脑clone项目时发现之前配置的样式丢失，然后才发现主题文件是空的。 解决办法：1git rm --cached themes/next #next为你的主题名 然后重新提交即可（  如果还不行，看下改目录下是否有.git 隐藏文件夹，删除后 重新执行清除缓存操作。） 问题原因：因为我的项目是clone的官方项目，相当于一个子项目，这里用到了git 的子">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://raw.githubusercontent.com/itlilei/pic/master/20190709175746.png">
-<meta property="og:updated_time" content="2019-07-09T10:51:46.814Z">
+<meta property="og:updated_time" content="2019-07-09T14:38:13.035Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="解决hexo无法提交备份theme主题目录">
-<meta name="twitter:description" content="问题描述：提交代码到github后，在新的电脑clone项目时发现之前配置的样式丢失，然后才发现主题文件是空的。 解决办法：1git rm --cached themes/next #next为你的主题名 然后重新提交即可 问题原因：因为我的项目是clone的官方项目，相当于一个子项目，这里用到了git 的子模块（git submodule）功能，子模块只是一个 HEAD 指针，指向子模块的 co">
+<meta name="twitter:description" content="问题描述：提交代码到github后，在新的电脑clone项目时发现之前配置的样式丢失，然后才发现主题文件是空的。 解决办法：1git rm --cached themes/next #next为你的主题名 然后重新提交即可（  如果还不行，看下改目录下是否有.git 隐藏文件夹，删除后 重新执行清除缓存操作。） 问题原因：因为我的项目是clone的官方项目，相当于一个子项目，这里用到了git 的子">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/itlilei/pic/master/20190709175746.png">
 
 
@@ -167,8 +167,6 @@
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="default">
   
-<script type="text/javascript" color="0,0,255" opacity="0.3" zindex="-2" count="10" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
-
   
   
     
@@ -458,7 +456,7 @@
       
         <h4 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h4><p>提交代码到github后，在新的电脑clone项目时发现之前配置的样式丢失，然后才发现主题文件是空的。<br><img src="https://raw.githubusercontent.com/itlilei/pic/master/20190709175746.png" alt="20190709175746.png"></p>
 <h4 id="解决办法："><a href="#解决办法：" class="headerlink" title="解决办法："></a>解决办法：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm --cached themes/next <span class="comment">#next为你的主题名</span></span><br></pre></td></tr></table></figure>
-<p>然后重新提交即可</p>
+<p>然后重新提交即可（ <label style="color:red;"> 如果还不行，看下改目录下是否有.git 隐藏文件夹，删除后 重新执行清除缓存操作。</label>）</p>
 <h4 id="问题原因："><a href="#问题原因：" class="headerlink" title="问题原因："></a>问题原因：</h4><p>因为我的项目是clone的官方项目，相当于一个子项目，这里用到了git 的子模块（git submodule）功能，子模块只是一个 HEAD 指针，指向子模块的 commit。<br>相当于把一个大项目分成多个小项目，尽可能减少项目之间的关联，方便调试和修改。</p>
 <blockquote>
 <p>关于子模块的详细描述，参考文档： <a href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97" target="_blank" rel="noopener">https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97</a></p>
@@ -480,9 +478,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/hexo/" rel="tag"># hexo</a>
-          
             <a href="/tags/git/" rel="tag"># git</a>
+          
+            <a href="/tags/hexo/" rel="tag"># hexo</a>
           
         </div>
       
@@ -504,6 +502,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/09/Tools/git常用命令及问题汇总/" rel="prev" title="git常用命令及问题汇总">
+                git常用命令及问题汇总 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -583,7 +585,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -747,8 +749,6 @@
   
 
 
-  
-
 
 
 
@@ -787,11 +787,6 @@
   
   
     <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 
