@@ -13,7 +13,7 @@ categories: 工具
 ``` bash 
 git rm --cached themes/next #next为你的主题名
 ```
-然后重新提交即可
+然后重新提交即可（ <label style="color:red;"> 如果还不行，看下改目录下是否有.git 隐藏文件夹，删除后 重新执行清除缓存操作。</label>）
 #### 问题原因：
 因为我的项目是clone的官方项目，相当于一个子项目，这里用到了git 的子模块（git submodule）功能，子模块只是一个 HEAD 指针，指向子模块的 commit。
 相当于把一个大项目分成多个小项目，尽可能减少项目之间的关联，方便调试和修改。
