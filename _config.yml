@@ -108,10 +108,11 @@ live2d:
   pluginJsPath: lib/
   pluginModelPath: assets/
   model:
-    use: live2d-widget-model-wanko
+    use: live2d-widget-model-hijiki
   display:
     position: right
     width: 150
     height: 300
+    hOffset: 60
   mobile:
     show: true
