@@ -177,3 +177,12 @@ let a = {
 }
 console.log(a == 1 && a == 2 && a == 3); //true
 ```
+还有一种更简单的实现，上边讲到数组的toString 接口默认调用数组的 join 方法，所以可以重写数组的 join 方法（奇淫巧技）：
+
+```javascript
+let a = [1, 2, 3];
+a.join = a.shift;
+console.log(a == 1 && a == 2 && a == 3); //true
+```
+
+当然该问题还有很多其他的实现方式，后续讲到其他基础知识时再列举。
