@@ -67,7 +67,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="js,">
 
 
 
@@ -78,17 +78,18 @@
 
 
 
-<meta name="description" content="简介昵称：Leory 邮箱：it_lilei@sina.com github：https://github.com/itlilei  新的博客地址，将之前的文章和笔记重新整理了一遍，还有一些之前自己的分享。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="关于">
-<meta property="og:url" content="http://yoursite.com/about/index.html">
+<meta name="description" content="概述javascript 中几乎所有类型都具有toString和valueOf属性，而且他们都有各自的toString或valueOf方法的实现，特殊情况下边讲到。 123Array.prototype.hasOwnProperty(&apos;valueOf&apos;);      //falseFunction.prototype.hasOwnProperty(&apos;valueOf&apos;);   //falseRegE">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS基础（二） toString、valueOf、Symbol.toPrimitive 类型转换">
+<meta property="og:url" content="http://yoursite.com/2019/07/10/FE /JS基础（二） toString、valueOf、Symbol.toPrimitive /index.html">
 <meta property="og:site_name" content="Leroy&#39;s blog">
-<meta property="og:description" content="简介昵称：Leory 邮箱：it_lilei@sina.com github：https://github.com/itlilei  新的博客地址，将之前的文章和笔记重新整理了一遍，还有一些之前自己的分享。">
+<meta property="og:description" content="概述javascript 中几乎所有类型都具有toString和valueOf属性，而且他们都有各自的toString或valueOf方法的实现，特殊情况下边讲到。 123Array.prototype.hasOwnProperty(&apos;valueOf&apos;);      //falseFunction.prototype.hasOwnProperty(&apos;valueOf&apos;);   //falseRegE">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-09T15:10:17.634Z">
+<meta property="og:updated_time" content="2019-07-10T12:49:51.808Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于">
-<meta name="twitter:description" content="简介昵称：Leory 邮箱：it_lilei@sina.com github：https://github.com/itlilei  新的博客地址，将之前的文章和笔记重新整理了一遍，还有一些之前自己的分享。">
+<meta name="twitter:title" content="JS基础（二） toString、valueOf、Symbol.toPrimitive 类型转换">
+<meta name="twitter:description" content="概述javascript 中几乎所有类型都具有toString和valueOf属性，而且他们都有各自的toString或valueOf方法的实现，特殊情况下边讲到。 123Array.prototype.hasOwnProperty(&apos;valueOf&apos;);      //falseFunction.prototype.hasOwnProperty(&apos;valueOf&apos;);   //falseRegE">
 
 
 
@@ -118,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/about/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/10/FE /JS基础（二） toString、valueOf、Symbol.toPrimitive /">
 
 
 
 
 
-  <title>关于 | Leroy's blog</title>
+  <title>JS基础（二） toString、valueOf、Symbol.toPrimitive 类型转换 | Leroy's blog</title>
   
 
 
@@ -275,37 +276,347 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/10/FE /JS基础（二） toString、valueOf、Symbol.toPrimitive /">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leroy">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leroy's blog">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">关于</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>昵称：Leory</p>
-<p>邮箱：<a href="mailto:it_lilei@sina.com" target="_blank" rel="noopener">it_lilei@sina.com</a></p>
-<p>github：<a href="https://github.com/itlilei" target="_blank" rel="noopener">https://github.com/itlilei</a> </p>
-<p>新的博客地址，将之前的文章和笔记重新整理了一遍，还有一些之前自己的分享。</p>
-
+          <h1 class="post-title" itemprop="name headline">JS基础（二） toString、valueOf、Symbol.toPrimitive 类型转换</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发布时间</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-10T00:00:00+08:00">
+                2019-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/10/FE /JS基础（二） toString、valueOf、Symbol.toPrimitive /#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/10/FE /JS基础（二） toString、valueOf、Symbol.toPrimitive /" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/07/10/FE /JS基础（二） toString、valueOf、Symbol.toPrimitive /" class="leancloud_visitors" data-flag-title="JS基础（二） toString、valueOf、Symbol.toPrimitive 类型转换">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a><label style="color:#1E90FF">概述</label></h3><p><strong>javascript 中几乎所有类型都具有toString和valueOf属性，而且他们都有各自的toString或valueOf方法的实现，特殊情况下边讲到。</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.hasOwnProperty(<span class="string">'valueOf'</span>);      <span class="comment">//false</span></span><br><span class="line"><span class="built_in">Function</span>.prototype.hasOwnProperty(<span class="string">'valueOf'</span>);   <span class="comment">//false</span></span><br><span class="line"><span class="built_in">RegExp</span>.prototype.hasOwnProperty(<span class="string">'valueOf'</span>);     <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+<p>只有<label style="color:red">Array,Function,RegExp</label>的原型上没有valueOf属性,他们能有该方法是因为继承了Object，所以这三个对象调用的是Object原型上的valueOf。</p>
+<label style="color:red;"><br>特殊情况:null和undefined不能转换为字符串,null和undefined调用toString()方法会报错。<br>转字符串的另一种方法：String(),他可以将null和undefined转换为字符串。<br></label>
+
+<h3 id="valueOf-介绍"><a href="#valueOf-介绍" class="headerlink" title="valueOf 介绍"></a><label style="color:#1E90FF">valueOf 介绍</label></h3><p><strong>valueOf() 返回对象的原始值，如果对象没有原始值，valueOf() 就会返回对象自身。</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">对象</th>
+<th style="text-align:left">返回值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Array</td>
+<td style="text-align:left">返回数组对象本身</td>
+</tr>
+<tr>
+<td style="text-align:center">Boolean</td>
+<td style="text-align:left">布尔值</td>
+</tr>
+<tr>
+<td style="text-align:center">Date</td>
+<td style="text-align:left">返回时间的毫秒数</td>
+</tr>
+<tr>
+<td style="text-align:center">Function</td>
+<td style="text-align:left">函数本身</td>
+</tr>
+<tr>
+<td style="text-align:center">Number</td>
+<td style="text-align:left">数字的值</td>
+</tr>
+<tr>
+<td style="text-align:center">Object</td>
+<td style="text-align:left">对象本身</td>
+</tr>
+<tr>
+<td style="text-align:center">String</td>
+<td style="text-align:left">字符串的值</td>
+</tr>
+</tbody>
+</table>
+<h3 id="toString-介绍"><a href="#toString-介绍" class="headerlink" title="toString 介绍"></a><label style="color:#1E90FF">toString 介绍</label></h3><p><strong>toString的作用是将值转换为字符串</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">对象</th>
+<th style="text-align:left">返回值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Array</td>
+<td style="text-align:left">将数组元素转换为字符串，用逗号拼接并返回(a=[1,2]=&gt; “1,2”)</td>
+</tr>
+<tr>
+<td style="text-align:center">Boolean</td>
+<td style="text-align:left">返回’true’ ‘false’</td>
+</tr>
+<tr>
+<td style="text-align:center">Date</td>
+<td style="text-align:left">返回日期的字符串格式 “Wed Jul 10 2019 18:21:07 GMT+0800 (中国标准时间)”</td>
+</tr>
+<tr>
+<td style="text-align:center">Function</td>
+<td style="text-align:left">函数本身的文本 “function a(){console.log(‘function’)}”</td>
+</tr>
+<tr>
+<td style="text-align:center">Number</td>
+<td style="text-align:left">返回文本表示，<label style="color:red">可接收一个参数表示输出的进制数，默认为十进制</label></td>
+</tr>
+<tr>
+<td style="text-align:center">Object</td>
+<td style="text-align:left">返回 <label style="color:red">“[object 类型名]”</label></td>
+</tr>
+<tr>
+<td style="text-align:center">String</td>
+<td style="text-align:left">字符串的值</td>
+</tr>
+</tbody>
+</table>
+<h3 id="valueOf-toString-使用场景"><a href="#valueOf-toString-使用场景" class="headerlink" title="valueOf toString 使用场景"></a><label style="color:#1E90FF">valueOf toString 使用场景</label></h3><p>定义一个复杂对象，具体看下他们是如何执行的<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> test = &#123; </span><br><span class="line"> i: <span class="number">10</span>, </span><br><span class="line"> toString: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'toString'</span>); </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.i; </span><br><span class="line"> &#125;, </span><br><span class="line"> valueOf: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'valueOf'</span>); </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.i; </span><br><span class="line"> &#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">alert(test);<span class="comment">// 10 toString </span></span><br><span class="line">alert(+test); <span class="comment">// 10 valueOf </span></span><br><span class="line">alert(<span class="string">''</span>+test); <span class="comment">// 10 valueOf </span></span><br><span class="line">alert(<span class="built_in">String</span>(test)); <span class="comment">// 10 toString </span></span><br><span class="line">alert(<span class="built_in">Number</span>(test)); <span class="comment">// 10 valueOf </span></span><br><span class="line">alert(test == <span class="string">'10'</span>); <span class="comment">// true valueOf </span></span><br><span class="line">alert(test === <span class="string">'10'</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure></p>
+<p>结论</p>
+<pre><code>1. 在进行强转字符串类型时将优先调用toString方法，强转为数字时优先调用valueOf。
+2. 在有运算操作符的情况下，valueOf的优先级高于toString。 
+3. 这两个方法一般是交由js去隐式调用，以满足不同的运算情况。 
+4. 在数值运算里，会优先调用valueOf()，如 a + b; 
+5. 在字符串运算里，会优先调用toString(),如alert(c).
+</code></pre><h3 id="Symbol-toPrimitive"><a href="#Symbol-toPrimitive" class="headerlink" title="Symbol.toPrimitive"></a><label style="color:#1E90FF">Symbol.toPrimitive</label></h3><p>ES6 的详细介绍：</p>
+<blockquote>
+<p>对象的Symbol.toPrimitive属性，指向一个方法。该对象被转为原始类型的值时，会调用这个方法，返回该对象对应的原始类型值。</p>
+</blockquote>
+<blockquote>
+<p>Symbol.toPrimitive被调用时，会接受一个字符串参数，表示当前运算的模式，一共有三种模式。</p>
+</blockquote>
+<blockquote>
+<ol>
+<li>Number：该场合需要转成数值</li>
+<li>String：该场合需要转成字符串</li>
+<li>Default：该场合可以转成数值，也可以转成字符串<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  [<span class="built_in">Symbol</span>.toPrimitive](hint) &#123;</span><br><span class="line">    <span class="keyword">switch</span> (hint) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">'number'</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">123</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">'string'</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'str'</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">'default'</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'default'</span>;</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>();</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="number">2</span> * obj <span class="comment">// 246</span></span><br><span class="line"><span class="number">3</span> + obj <span class="comment">// '3default'</span></span><br><span class="line">obj == <span class="string">'default'</span> <span class="comment">// true</span></span><br><span class="line"><span class="built_in">String</span>(obj) <span class="comment">// 'str'</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+<p>可以通过一个例子看下三者的优先级<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> ab = &#123;</span><br><span class="line">    valueOf() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    toString() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'1'</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    [<span class="built_in">Symbol</span>.toPrimitive]() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>+ab);  <span class="comment">//3</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'1'</span>+ab); <span class="comment">//12</span></span><br></pre></td></tr></table></figure></p>
+<p>结论：在转换基本类型的时候，Symbol.toPrimitive 的优先级最高。</p>
+<h3 id="类型转换及原则"><a href="#类型转换及原则" class="headerlink" title="类型转换及原则"></a><label style="color:#1E90FF">类型转换及原则</label></h3><h5 id="双等号-的比较机制"><a href="#双等号-的比较机制" class="headerlink" title="双等号 == 的比较机制"></a><label style="color:#B0C4DE">双等号 == 的比较机制</label></h5><p><strong>在判断的过程中会进行隐式的类型转换</strong></p>
+<pre><code>1.是否有NaN
+首先判断双等号两边是否有NaN，如果有的话，则一律返回false。
+
+2.是否有boolean值
+如果有的话则将true转化为1，false转化为0。
+
+3.null和undefined
+遇到null或者undefined，则不会进行类型转换，它们相互的比较都返回true。
+
+4.有一边是字符串,分四种情况：
+
+    1） 同样是字符串，则直接进行字符串值的比较
+
+    2） 是数字，则需要将字符串转化为数字，然后进行比较
+
+    3） 有布尔类型，则要将布尔类型转化为0或则1，然后进行比较
+
+    4） 对象或者数组类型，则需要调用toString()或者valueOf()方法转化成简单类型，然后进行比较
+</code></pre><p>对象转化为简单类型时会优先调用valueOf方法，如果可以与简单值进行比较则会直接比较，此时不再调用toString方法。<br>如果调用valueOf方法后无法与简单值进行比较，则会再调用toString方法，最终得到比对的结果。<br>但是需要注意的一点是Date对象不满足上述的规则，Date对象的toString和valueOf方法都是重新定义过的。默认会调用toString方法。</p>
+<h3 id="灵活运用：如何实现-a-1-amp-amp-a-2-amp-amp-a-3-的值为true"><a href="#灵活运用：如何实现-a-1-amp-amp-a-2-amp-amp-a-3-的值为true" class="headerlink" title="灵活运用：如何实现 (a == 1 &amp;&amp; a == 2 &amp;&amp; a == 3) 的值为true"></a><label style="color:#1E90FF">灵活运用：如何实现 (a == 1 &amp;&amp; a == 2 &amp;&amp; a == 3) 的值为true</label></h3><p>分析：== 操作符在左右数据类型不一致时，会先进行隐式转换。a == 1 &amp;&amp; a == 2 &amp;&amp; a == 3 的值意味着其不可能是基本数据类型。因此 a 是复杂数据类型，JS 中复杂数据类型只有 object，根据上边讲到的object转换类型的方法，得出答案。</p>
+<p>Symbol.toPrimitive实现（其他两种亦可）：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">    [<span class="built_in">Symbol</span>.toPrimitive]: (<span class="function"><span class="keyword">function</span>(<span class="params">hint</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">let</span> i = <span class="number">1</span>;</span><br><span class="line">            <span class="comment">//闭包的特性之一：i 不会被回收</span></span><br><span class="line">            <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> i++;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;)()</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(a == <span class="number">1</span> &amp;&amp; a == <span class="number">2</span> &amp;&amp; a == <span class="number">3</span>); <span class="comment">//true</span></span><br></pre></td></tr></table></figure></p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"># js</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/09/Tools/hexo主题theme无法提交/" rel="next" title="解决hexo无法提交备份theme主题目录">
+                <i class="fa fa-chevron-left"></i> 解决hexo无法提交备份theme主题目录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -431,7 +742,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#valueOf-介绍"><span class="nav-number">2.</span> <span class="nav-text">valueOf 介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#toString-介绍"><span class="nav-number">3.</span> <span class="nav-text">toString 介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#valueOf-toString-使用场景"><span class="nav-number">4.</span> <span class="nav-text">valueOf toString 使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Symbol-toPrimitive"><span class="nav-number">5.</span> <span class="nav-text">Symbol.toPrimitive</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类型转换及原则"><span class="nav-number">6.</span> <span class="nav-text">类型转换及原则</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#双等号-的比较机制"><span class="nav-number">6.0.1.</span> <span class="nav-text">双等号 == 的比较机制</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#灵活运用：如何实现-a-1-amp-amp-a-2-amp-amp-a-3-的值为true"><span class="nav-number">7.</span> <span class="nav-text">灵活运用：如何实现 (a == 1 &amp;&amp; a == 2 &amp;&amp; a == 3) 的值为true</span></a></li></div>
             
 
           </div>
