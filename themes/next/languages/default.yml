@@ -25,7 +25,7 @@ post:
   created: Post created
   modified: Post modified
   sticky: Sticky
-  posted: 发布时间
+  posted: 发布 # 发布时间
   in: In
   more: more
   read_more: Read more
