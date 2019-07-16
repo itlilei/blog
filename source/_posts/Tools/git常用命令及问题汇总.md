@@ -6,6 +6,7 @@ date: 2019-07-09
 categories: 工具
 ---
 
+整理了一些我常用的命令及遇到的问题，供参考。
 #### Git配置ssh
 配置你的用户名和邮箱：
 ``` bash
@@ -36,3 +37,13 @@ cat ~/.ssh/id_rsa.pub
  ```bash 
  ssh -T git@github.com
 ```
+
+
+#### git commit 提交添加表情
+
+提交引入表情 记录一目了然。使用方法：
+ ```bash 
+ git commit -m':tada: 提交内容说明'
+ ```
+
+![20190711153908.png](https://raw.githubusercontent.com/itlilei/pic/master/20190711153908.png)
