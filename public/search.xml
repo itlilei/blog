@@ -1,9 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[JS基础（二） toString、valueOf、Symbol.toPrimitive 类型转换]]></title>
-    <url>%2F2019%2F07%2F10%2FFE%20%2FJS%E5%9F%BA%E7%A1%80%EF%BC%88%E4%BA%8C%EF%BC%89%20toString%E3%80%81valueOf%E3%80%81Symbol.toPrimitive%20%2F</url>
-    <content type="text"><![CDATA[概述javascript 中几乎所有类型都具有toString和valueOf属性，而且他们都有各自的toString或valueOf方法的实现，特殊情况下边讲到。 123Array.prototype.hasOwnProperty('valueOf'); //falseFunction.prototype.hasOwnProperty('valueOf'); //falseRegExp.prototype.hasOwnProperty('valueOf'); //false 只有Array,Function,RegExp的原型上没有valueOf属性,他们能有该方法是因为继承了Object，所以这三个对象调用的是Object原型上的valueOf。 特殊情况:null和undefined不能转换为字符串,null和undefined调用toString()方法会报错。转字符串的另一种方法：String(),他可以将null和undefined转换为字符串。 valueOf 介绍valueOf() 返回对象的原始值，如果对象没有原始值，valueOf() 就会返回对象自身。 对象 返回值 Array 返回数组对象本身 Boolean 布尔值 Date 返回时间的毫秒数 Function 函数本身 Number 数字的值 Object 对象本身 String 字符串的值 toString 介绍toString的作用是将值转换为字符串 对象 返回值 Array 将数组元素转换为字符串，用逗号拼接并返回(a=[1,2]=&gt; “1,2”) Boolean 返回’true’ ‘false’ Date 返回日期的字符串格式 “Wed Jul 10 2019 18:21:07 GMT+0800 (中国标准时间)” Function 函数本身的文本 “function a(){console.log(‘function’)}” Number 返回文本表示，可接收一个参数表示输出的进制数，默认为十进制 Object 返回 “[object 类型名]” String 字符串的值 valueOf toString 使用场景定义一个复杂对象，具体看下他们是如何执行的12345678910111213141516171819var test = &#123; i: 10, toString: function() &#123; console.log('toString'); return this.i; &#125;, valueOf: function() &#123; console.log('valueOf'); return this.i; &#125; &#125; alert(test);// 10 toString alert(+test); // 10 valueOf alert(''+test); // 10 valueOf alert(String(test)); // 10 toString alert(Number(test)); // 10 valueOf alert(test == '10'); // true valueOf alert(test === '10'); // false 结论 1. 在进行强转字符串类型时将优先调用toString方法，强转为数字时优先调用valueOf。 2. 在有运算操作符的情况下，valueOf的优先级高于toString。 3. 这两个方法一般是交由js去隐式调用，以满足不同的运算情况。 4. 在数值运算里，会优先调用valueOf()，如 a + b; 5. 在字符串运算里，会优先调用toString(),如alert(c). Symbol.toPrimitiveES6 的详细介绍： 对象的Symbol.toPrimitive属性，指向一个方法。该对象被转为原始类型的值时，会调用这个方法，返回该对象对应的原始类型值。 Symbol.toPrimitive被调用时，会接受一个字符串参数，表示当前运算的模式，一共有三种模式。 Number：该场合需要转成数值 String：该场合需要转成字符串 Default：该场合可以转成数值，也可以转成字符串12345678910111213141516171819let obj = &#123; [Symbol.toPrimitive](hint) &#123; switch (hint) &#123; case 'number': return 123; case 'string': return 'str'; case 'default': return 'default'; default: throw new Error(); &#125; &#125;&#125;;2 * obj // 2463 + obj // '3default'obj == 'default' // trueString(obj) // 'str' 可以通过一个例子看下三者的优先级12345678910111213let ab = &#123; valueOf() &#123; return 0; &#125;, toString() &#123; return '1'; &#125;, [Symbol.toPrimitive]() &#123; return 2; &#125;&#125;console.log(1+ab); //3console.log('1'+ab); //12 结论：在转换基本类型的时候，Symbol.toPrimitive 的优先级最高。 类型转换及原则双等号 == 的比较机制在判断的过程中会进行隐式的类型转换 1.是否有NaN 首先判断双等号两边是否有NaN，如果有的话，则一律返回false。 2.是否有boolean值 如果有的话则将true转化为1，false转化为0。 3.null和undefined 遇到null或者undefined，则不会进行类型转换，它们相互的比较都返回true。 4.有一边是字符串,分四种情况： 1） 同样是字符串，则直接进行字符串值的比较 2） 是数字，则需要将字符串转化为数字，然后进行比较 3） 有布尔类型，则要将布尔类型转化为0或则1，然后进行比较 4） 对象或者数组类型，则需要调用toString()或者valueOf()方法转化成简单类型，然后进行比较 对象转化为简单类型时会优先调用valueOf方法，如果可以与简单值进行比较则会直接比较，此时不再调用toString方法。如果调用valueOf方法后无法与简单值进行比较，则会再调用toString方法，最终得到比对的结果。但是需要注意的一点是Date对象不满足上述的规则，Date对象的toString和valueOf方法都是重新定义过的。默认会调用toString方法。 灵活运用：如何实现 (a == 1 &amp;&amp; a == 2 &amp;&amp; a == 3) 的值为true分析：== 操作符在左右数据类型不一致时，会先进行隐式转换。a == 1 &amp;&amp; a == 2 &amp;&amp; a == 3 的值意味着其不可能是基本数据类型。因此 a 是复杂数据类型，JS 中复杂数据类型只有 object，根据上边讲到的object转换类型的方法，得出答案。 Symbol.toPrimitive实现（其他两种亦可）：12345678910let a = &#123; [Symbol.toPrimitive]: (function(hint) &#123; let i = 1; //闭包的特性之一：i 不会被回收 return function() &#123; return i++; &#125; &#125;)()&#125;console.log(a == 1 &amp;&amp; a == 2 &amp;&amp; a == 3); //true]]></content>
+    <title><![CDATA[koa 使用redis教程]]></title>
+    <url>%2F2019%2F07%2F25%2FFE%20%2Fnode%2Fkoa%20%E4%BD%BF%E7%94%A8%20redis%E6%95%99%E7%A8%8B%2F</url>
+    <content type="text"><![CDATA[安装教程1.安装redisbrew install redis 2.启动服务端redis-server 启动成功后如下图所示： 3.mac 下安装redis管理工具 rdm （安装包网上很多，搜索下载即可，windows下同理） 安装完成后： name自己取一个，host 为本机host，点击ok即可 redis命令及教程可参考：https://www.runoob.com/redis/redis-keys.html koa 中使用redis1.安装redisnpm install redis koa-redis --save 2.使用redis12345678910111213141516171819const Koa =require('koa')const app =new Koa()const redis=require('redis')const redisStore =require('koa-redis')//服务器的ip和端口号 var client=redis.createClient(6379,'127.0.0.1')var store=redisStore(&#123; client:client, db:'db0'&#125;)app.use(async (ctx)=&gt;&#123; await store.client.set('word','first success') ctx.body=await store.client.get('word')&#125;)app.listen(5000)console.log('node of koa server is starting at port 5000') 浏览器中访问 localhost:5000，在rdm中查看存储的值“word” Redis支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及zset(sorted set：有序集合) 操作其他数据类型参考上面的教程链接]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+        <tag>node</tag>
+        <tag>koa</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Koa 教程]]></title>
+    <url>%2F2019%2F07%2F24%2FFE%20%2Fnode%2Fkoa%E6%95%99%E7%A8%8B%2F</url>
+    <content type="text"><![CDATA[koa入门1.初始化package.jsonnpm init 2.安装koa2npm install koa 3.新建index.js（入口）文件1234567const Koa =require('koa')const app =new Koa()app.use(async (ctx)=&gt;&#123; ctx.body='hello'&#125;)app.listen(5000)console.log('node of koa server is starting at port 5000') 4.启动服务node index.js 5.浏览器访问 http://localhost:5000 koa http1.koa request 1234567891011121314151617181920212223242526272829// headerctx.request.headers ctx.request. protocolctx.request.typectx.request.charset// methodctx.request.methodctx.request.query // getctx.request.body // post | 依赖 koa-bodyparse 第三方模块，后面章节有描述// pathctx.request.url // path/?get=ctx.request.path // path// hostctx.request.host // hostname:portctx.request.hostname // hostnamectx.request.ipcrx.request.subdomains // cookiectx.cookies.get('name') // 获取 cookiectx.cookies.set(name, value, &#123; // 设置 cookie 'expires': new Date() // 时间 'path' : '/' // 路径 'domain': '0.0.0.0' // 域 'httpOnly': false // 禁止js获取&#125;) 2.koa response 1234567891011// headerctx.set(&#123;&#125;)// statusctx.response.status = 200// typectx.response.type = 'text/html; charset=utf-8' // defaule// redirectctx.response.redirect(url) 中间件 koa-router1234567891011121314const Koa =require('koa')const app =new Koa()const router= require('koa-router')()router.get('/',(ctx,next)=&gt;&#123; ctx.body='get success'&#125;)router.post('/list',(ctx,next)=&gt;&#123; ctx.body='list success'&#125;)//注册路由//app.use(router.routes())app.use(router.routes(),router.allowedMethods())app.listen(5000)console.log('node of koa server is starting at port 5000') 如果是多个模块的路由，可将路由拆成独立的js文件123456789101112131415161718192021222324// 路由模块使用前需要先安装和实例化const Router = require('koa-router')const router = new Router()// 首页app.use(async (ctx, next) =&gt; &#123; if (ctx.request.path === '/') &#123; ctx.response.status = 200 ctx.response.body = 'index' &#125; await next()&#125;)// 其他页面通过 router 加载let urls = fs.readdirSync(__dirname + '/urls')urls.forEach((element) =&gt; &#123; let module = require(__dirname + '/urls/' + element) /* urls 下面的每个文件负责一个特定的功能，分开管理 通过 fs.readdirSync 读取 urls 目录下的所有文件名，挂载到 router 上面 */ router.use('/' + element.replace('.js', ''), module.routes(), module.allowedMethods())&#125;)app.use(router.routes()) 根据代码配置，例如在 urls下新建home.js 路由模块 urls/home.js123456789101112131415161718const Router = require('koa-router')const home = new Router()// /homehome.get('/', async (ctx, next) =&gt; &#123; ctx.response.status = 200 ctx.response.body = 'home' await next()&#125;)// home/listhome.get('/list', async (ctx, next) =&gt; &#123; ctx.response.status = 200 ctx.response.body = 'home-list' await next()&#125;)module.exports = home 注：其中router.allowedMethods()可加可不加，它的作用是当所有路由中间件执行完成之后,若ctx.status为空或者404的时候,丰富response对象的header头，参考 其源码内容 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556Router.prototype.allowedMethods = function (options) &#123; options = options || &#123;&#125;; var implemented = this.methods; return function allowedMethods(ctx, next) &#123; return next().then(function() &#123; var allowed = &#123;&#125;; //重点代码 //当后续所有中间件执行完成之后,判断ctx的status,如果next中间件已经正确处理了response响应,则直接略过 if (!ctx.status || ctx.status === 404) &#123; ctx.matched.forEach(function (route) &#123; route.methods.forEach(function (method) &#123; allowed[method] = method; &#125;); &#125;); var allowedArr = Object.keys(allowed); if (!~implemented.indexOf(ctx.method)) &#123; if (options.throw) &#123; var notImplementedThrowable; if (typeof options.notImplemented === 'function') &#123; notImplementedThrowable = options.notImplemented(); // set whatever the user returns from their function &#125; else &#123; notImplementedThrowable = new HttpError.NotImplemented(); &#125; throw notImplementedThrowable; &#125; else &#123; ctx.status = 501; ctx.set('Allow', allowedArr); &#125; &#125; else if (allowedArr.length) &#123; if (ctx.method === 'OPTIONS') &#123; ctx.status = 200; ctx.body = ''; ctx.set('Allow', allowedArr); &#125; else if (!allowed[ctx.method]) &#123; if (options.throw) &#123; var notAllowedThrowable; if (typeof options.methodNotAllowed === 'function') &#123; notAllowedThrowable = options.methodNotAllowed(); // set whatever the user returns from their function &#125; else &#123; notAllowedThrowable = new HttpError.MethodNotAllowed(); &#125; throw notAllowedThrowable; &#125; else &#123; ctx.status = 405; ctx.set('Allow', allowedArr); &#125; &#125; &#125; &#125; &#125;); &#125;;&#125;; koa-static 静态文件处理123456const Koa =require('koa')const app =new Koa()const _static = require('koa-static')app.use(_static(__dirname, './static'))app.listen(5000) static 下的资源就可以直接访问了]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[mac 开发效率提升小技巧]]></title>
+    <url>%2F2019%2F07%2F23%2FTools%2Fmac%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87%E6%8F%90%E5%8D%87%E5%B0%8F%E6%8A%80%E5%B7%A7%2F</url>
+    <content type="text"><![CDATA[（待整理） 1.文件预览功能 不打开文件的情况下预览文件基本信息 ，选中文件 按空格键 2.快速获取文件当前路径 https://segmentfault.com/a/1190000018762739?utm_source=tag-newest]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>mac</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Node 常用模块]]></title>
+    <url>%2F2019%2F07%2F23%2FFE%20%2Fnode%2Fnode%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97%2F</url>
+    <content type="text"><![CDATA[ew]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+  </entry>
+  <entry>
+    <title></title>
+    <url>%2F2019%2F07%2F16%2FFE%20%2FJS%E5%9F%BA%E7%A1%80%EF%BC%88%E5%9B%9B%EF%BC%89Proxy%E4%BB%A3%E7%90%86%E3%80%81Object.defineProperty%E8%AF%A6%E8%A7%A3%E5%8F%8A%E5%8F%8C%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A%E5%AE%9E%E7%8E%B0%2F</url>
+    <content type="text"><![CDATA[https://github.com/YvetteLau/Blog/issues/25]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Promise详解]]></title>
+    <url>%2F2019%2F07%2F15%2FFE%20%2FPromise%E8%AF%A6%E8%A7%A3%2F</url>
+    <content type="text"></content>
       <categories>
         <category>前端</category>
       </categories>
@@ -12,14 +57,36 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[git常用命令及问题汇总]]></title>
-    <url>%2F2019%2F07%2F09%2FTools%2Fgit%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB%2F</url>
-    <content type="text"><![CDATA[Git配置ssh配置你的用户名和邮箱：12$ git config --global user.name "name"$ git config --global user.email "email@163.com" 生成ssh 1ssh-keygen -t rsa -C "your_email@youremail.com" Creates a new ssh key using the provided email # Generating public/private rsa # key pair.Enter file in which to save the key (/home/you/.ssh/id_rsa): 然后按两次Enter键 查看生成的公钥1cat ~/.ssh/id_rsa.pub 然后复制key到github或者gitlab 里 验证是否正常： 1ssh -T git@github.com]]></content>
+    <title><![CDATA[Fetch请求]]></title>
+    <url>%2F2019%2F07%2F15%2FFE%20%2FCSS%E5%B8%B8%E7%94%A8%E6%A0%B7%E5%BC%8F%E6%95%B4%E7%90%86%2F</url>
+    <content type="text"><![CDATA[input消除默认值，取消在手机上的点击高亮效果123456789input&#123; -webkit-tap-highlight-color: rgba(255, 255, 255, 0); -webkit-user-select: none; -moz-user-focus: none; -moz-user-select: none; -webkit-appearance:none; outline: none; border: none;&#125;]]></content>
       <categories>
-        <category>工具</category>
+        <category>前端</category>
       </categories>
       <tags>
-        <tag>git</tag>
+        <tag>css</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[JS基础（三）JS运行机制 Event Loop]]></title>
+    <url>%2F2019%2F07%2F11%2FFE%20%2FJS%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%89%EF%BC%89JS%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6%20Event%20Loop%2F</url>
+    <content type="text"><![CDATA[JS运行机制任务队列JS最大的特点就是单线程，所有任务需要排队，前一个任务结束，才会执行后一个任务。所有任务可以分成两种，一种是同步任务（synchronous），另一种是异步任务（asynchronous）。同步任务指的是，在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务；异步任务指的是，不进入主线程、而进入”任务队列”（task queue）的任务，只有”任务队列”通知主线程，某个异步任务可以执行了，该任务才会进入主线程执行，运行机制如下： （1）所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）。 （2）主线程之外，还存在一个&quot;任务队列&quot;（task queue）。只要异步任务有了运行结果，就在&quot;任务队列&quot;之中放置一个事件。 （3）一旦&quot;执行栈&quot;中的所有同步任务执行完毕，系统就会读取&quot;任务队列&quot;，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。 （4）主线程不断重复上面的第三步。 HTML5提出Web Worker标准，允许JavaScript脚本创建多个线程，但是子线程完全受主线程控制，且不得操作DOM，并没有改变JavaScript单线程的本质 “任务队列”是一个先进先出的数据结构，排在前面的事件，优先被主线程读取。主线程的读取过程基本上是自动的，只要执行栈一清空，”任务队列”上第一位的事件就自动进入主线程。但是，由于存在后文提到的”定时器”功能，主线程首先要检查一下执行时间，某些事件只有到了规定的时间，才能返回主线程。 作用域链作用域链作用域链就是从当前作用域开始一层一层向上寻找某个变量，直到找到全局作用域还是没找到，就宣布放弃。这种一层一层的关系，就是作用域链。 Event Loop 事件循环机制requestAnimationFrame youtube上一个国外的小哥的分享，内容挺不错 自己添加代码,动态查看 EventLoop的整个过程（配合下图理解会更加透彻）]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[JS基础（二） toString、valueOf、Symbol.toPrimitive 类型转换]]></title>
+    <url>%2F2019%2F07%2F10%2FFE%20%2FJS%E5%9F%BA%E7%A1%80%EF%BC%88%E4%BA%8C%EF%BC%89%20toString%E3%80%81valueOf%E3%80%81Symbol.toPrimitive%20%2F</url>
+    <content type="text"><![CDATA[概述javascript 中几乎所有类型都具有toString和valueOf属性，而且他们都有各自的toString或valueOf方法的实现，特殊情况下边讲到。 123Array.prototype.hasOwnProperty('valueOf'); //falseFunction.prototype.hasOwnProperty('valueOf'); //falseRegExp.prototype.hasOwnProperty('valueOf'); //false 只有Array,Function,RegExp的原型上没有valueOf属性,他们能有该方法是因为继承了Object，所以这三个对象调用的是Object原型上的valueOf。 特殊情况:null和undefined不能转换为字符串,null和undefined调用toString()方法会报错。转字符串的另一种方法：String(),他可以将null和undefined转换为字符串。 valueOf 介绍valueOf() 返回对象的原始值，如果对象没有原始值，valueOf() 就会返回对象自身。 对象 返回值 Array 返回数组对象本身 Boolean 布尔值 Date 返回时间的毫秒数 Function 函数本身 Number 数字的值 Object 对象本身 String 字符串的值 toString 介绍toString的作用是将值转换为字符串 对象 返回值 Array 将数组元素转换为字符串，用逗号拼接并返回(a=[1,2]=&gt; “1,2”) Boolean 返回’true’ ‘false’ Date 返回日期的字符串格式 “Wed Jul 10 2019 18:21:07 GMT+0800 (中国标准时间)” Function 函数本身的文本 “function a(){console.log(‘function’)}” Number 返回文本表示，可接收一个参数表示输出的进制数，默认为十进制 Object 返回 “[object 类型名]” String 字符串的值 valueOf toString 使用场景定义一个复杂对象，具体看下他们是如何执行的12345678910111213141516171819var test = &#123; i: 10, toString: function() &#123; console.log('toString'); return this.i; &#125;, valueOf: function() &#123; console.log('valueOf'); return this.i; &#125; &#125; alert(test);// 10 toString alert(+test); // 10 valueOf alert(''+test); // 10 valueOf alert(String(test)); // 10 toString alert(Number(test)); // 10 valueOf alert(test == '10'); // true valueOf alert(test === '10'); // false 结论 1. 在进行强转字符串类型时将优先调用toString方法，强转为数字时优先调用valueOf。 2. 在有运算操作符的情况下，valueOf的优先级高于toString。 3. 这两个方法一般是交由js去隐式调用，以满足不同的运算情况。 4. 在数值运算里，会优先调用valueOf()，如 a + b; 5. 在字符串运算里，会优先调用toString(),如alert(c). Symbol.toPrimitiveES6 的详细介绍： 对象的Symbol.toPrimitive属性，指向一个方法。该对象被转为原始类型的值时，会调用这个方法，返回该对象对应的原始类型值。 Symbol.toPrimitive被调用时，会接受一个字符串参数，表示当前运算的模式，一共有三种模式。 Number：该场合需要转成数值 String：该场合需要转成字符串 Default：该场合可以转成数值，也可以转成字符串12345678910111213141516171819let obj = &#123; [Symbol.toPrimitive](hint) &#123; switch (hint) &#123; case 'number': return 123; case 'string': return 'str'; case 'default': return 'default'; default: throw new Error(); &#125; &#125;&#125;;2 * obj // 2463 + obj // '3default'obj == 'default' // trueString(obj) // 'str' 可以通过一个例子看下三者的优先级12345678910111213let ab = &#123; valueOf() &#123; return 0; &#125;, toString() &#123; return '1'; &#125;, [Symbol.toPrimitive]() &#123; return 2; &#125;&#125;console.log(1+ab); //3console.log('1'+ab); //12 结论：在转换基本类型的时候，Symbol.toPrimitive 的优先级最高。 类型转换及原则双等号 == 的比较机制在判断的过程中会进行隐式的类型转换 1.是否有NaN 首先判断双等号两边是否有NaN，如果有的话，则一律返回false。 2.是否有boolean值 如果有的话则将true转化为1，false转化为0。 3.null和undefined 遇到null或者undefined，则不会进行类型转换，它们相互的比较都返回true。 4.有一边是字符串,分四种情况： 1） 同样是字符串，则直接进行字符串值的比较 2） 是数字，则需要将字符串转化为数字，然后进行比较 3） 有布尔类型，则要将布尔类型转化为0或则1，然后进行比较 4） 对象或者数组类型，则需要调用toString()或者valueOf()方法转化成简单类型，然后进行比较 对象转化为简单类型时会优先调用valueOf方法，如果可以与简单值进行比较则会直接比较，此时不再调用toString方法。如果调用valueOf方法后无法与简单值进行比较，则会再调用toString方法，最终得到比对的结果。但是需要注意的一点是Date对象不满足上述的规则，Date对象的toString和valueOf方法都是重新定义过的。默认会调用toString方法。 灵活运用：如何实现 (a == 1 &amp;&amp; a == 2 &amp;&amp; a == 3) 的值为true分析：== 操作符在左右数据类型不一致时，会先进行隐式转换。a == 1 &amp;&amp; a == 2 &amp;&amp; a == 3 的值意味着其不可能是基本数据类型。因此 a 是复杂数据类型，JS 中复杂数据类型只有 object，根据上边讲到的object转换类型的方法，得出答案。 Symbol.toPrimitive实现（其他两种亦可）：12345678910let a = &#123; [Symbol.toPrimitive]: (function(hint) &#123; let i = 1; //闭包的特性之一：i 不会被回收 return function() &#123; return i++; &#125; &#125;)()&#125;console.log(a == 1 &amp;&amp; a == 2 &amp;&amp; a == 3); //true 还有一种更简单的实现，上边讲到数组的toString 接口默认调用数组的 join 方法，所以可以重写数组的 join 方法（奇淫巧技）： 123let a = [1, 2, 3];a.join = a.shift;console.log(a == 1 &amp;&amp; a == 2 &amp;&amp; a == 3); //true 当然该问题还有很多其他的实现方式，后续讲到其他基础知识时再列举。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -30,14 +97,25 @@
         <category>工具</category>
       </categories>
       <tags>
-        <tag>git</tag>
         <tag>hexo</tag>
+        <tag>git</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[JS基础（一）]]></title>
+    <title><![CDATA[git常用命令及问题汇总]]></title>
+    <url>%2F2019%2F07%2F09%2FTools%2Fgit%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB%2F</url>
+    <content type="text"><![CDATA[整理了一些我常用的命令及遇到的问题，供参考。 Git配置ssh配置你的用户名和邮箱：12$ git config --global user.name "name"$ git config --global user.email "email@163.com" 生成ssh 1ssh-keygen -t rsa -C "your_email@youremail.com" Creates a new ssh key using the provided email # Generating public/private rsa # key pair.Enter file in which to save the key (/home/you/.ssh/id_rsa): 然后按两次Enter键 查看生成的公钥1cat ~/.ssh/id_rsa.pub 然后复制key到github或者gitlab 里 验证是否正常： 1ssh -T git@github.com git commit 提交添加表情提交引入表情 记录一目了然。使用方法： 1git commit -m':tada: 提交内容说明']]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[JS基础（一）变量 闭包 作用域]]></title>
     <url>%2F2019%2F07%2F06%2FFE%20%2FJS%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89%2F</url>
-    <content type="text"></content>
+    <content type="text"><![CDATA[let、const、var 的区别 声明方式 变量提升 暂时性死区 重复声明 块作用域有效 初始值 重新赋值 var 会 不存在 允许 不是 非必须 允许 let 不会 存在 不允许 是 非必须 允许 const 不会 存在 不允许 是 必须 不允许 块级作用域有效的解释：let/const 声明的变量仅在块级作用域中有效。而 var 声明的变量在块级作用域外仍能访问到。12345678&#123; let a = 10; const b = 20; var c = 30;&#125;console.log(a); //ReferenceErrorconsole.log(b); //ReferenceErrorconsole.log(c); //30 看一个例子,a[0] 到a[9] 的结果都是 10 ：123456var a = [];for (var i = 0; i &lt; 10; i++) &#123; a[i] = function () &#123; console.log(i); &#125;;&#125; 解决这个问题，可以使用闭包：123456789var a = [];for (var i = 0; i &lt; 10; i++) &#123; a[i] = (function(j)&#123; return function () &#123; console.log(j); &#125; &#125;)(i)&#125;a[6](); // 6 或者使用let：1234567var a = [];for (let i = 0; i &lt; 10; i++) &#123; a[i] = function () &#123; console.log(i); &#125;;&#125;a[6](); // 6 贴一张babel转义后的截图，看着会更容易理解一些。 暂时性死区的解释：使用let、const命令声明变量之前，该变量都是不可用的。这在语法上，称为“暂时性死区”（temporal dead zone，简称 TDZ） “暂时性死区”也意味着typeof不再是一个百分之百安全的操作 闭包可遍历对象 Iteratornew 实现原理双向数据绑定实现原理]]></content>
       <categories>
         <category>前端</category>
       </categories>
@@ -47,7 +125,7 @@
   </entry>
   <entry>
     <title><![CDATA[React-router4 分享 (一)]]></title>
-    <url>%2F2019%2F07%2F05%2FFE%20%2FPromise%E5%AF%B9%E8%B1%A1%2F</url>
+    <url>%2F2019%2F07%2F05%2FFE%20%2FReact-router4%20%E5%88%86%E4%BA%AB%20(%E4%B8%80)%2F</url>
     <content type="text"><![CDATA[]]></content>
       <categories>
         <category>前端</category>
@@ -55,6 +133,17 @@
       <tags>
         <tag>js</tag>
         <tag>react</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[VS Code 插件-图片自动上传工具 picgo]]></title>
+    <url>%2F2019%2F07%2F03%2FTools%2F%E5%9B%BE%E7%89%87%E8%87%AA%E5%8A%A8%E4%B8%8A%E4%BC%A0%E5%B7%A5%E5%85%B7picgo%2F</url>
+    <content type="text"><![CDATA[搜索 安装 picgo后 ，点击小齿轮配置github上传如下： 也可以再settings.json中配置： 1234"picgo.picBed.github.repo": "itlilei/name", // 仓库名，格式是username/reponame"picgo.picBed.github.token":"***", "picgo.picBed.github.branch": "master",// 分支名，默认是master"picgo.picBed.current": "github" 详细参数配置介绍可参考官方文档：https://picgo.github.io/PicGo-Doc/zh/guide/config.html#github%E5%9B%BE%E5%BA%8A 快捷键参考： 配置过程中遇到一个坑，github生成的token复制到onenote中，粘贴时默认首字母转换成大写了，导致一直上传失败，怀疑人生 /(ㄒoㄒ)/~~ 总结：配置完成后，写教程和文章，随时截图，直接粘贴图片链接，效率杠杠的。]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>VS Code</tag>
       </tags>
   </entry>
   <entry>
@@ -66,17 +155,6 @@
       </categories>
       <tags>
         <tag>js</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[VS Code 插件-图片自动上传工具 picgo]]></title>
-    <url>%2F2019%2F07%2F03%2FTools%2F%E5%9B%BE%E7%89%87%E8%87%AA%E5%8A%A8%E4%B8%8A%E4%BC%A0%E5%B7%A5%E5%85%B7picgo%2F</url>
-    <content type="text"><![CDATA[搜索 安装 picgo后 ，点击小齿轮配置github上传如下： 也可以再settings.json中配置： 1234"picgo.picBed.github.repo": "itlilei/name", // 仓库名，格式是username/reponame"picgo.picBed.github.token":"***", "picgo.picBed.github.branch": "master",// 分支名，默认是master"picgo.picBed.current": "github" 详细参数配置介绍可参考官方文档：https://picgo.github.io/PicGo-Doc/zh/guide/config.html#github%E5%9B%BE%E5%BA%8A 快捷键参考： 配置过程中遇到一个坑，github生成的token复制到onenote中，粘贴时默认首字母转换成大写了，导致一直上传失败，怀疑人生 /(ㄒoㄒ)/~~]]></content>
-      <categories>
-        <category>工具</category>
-      </categories>
-      <tags>
-        <tag>VS Code</tag>
       </tags>
   </entry>
 </search>

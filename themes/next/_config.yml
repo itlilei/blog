@@ -243,7 +243,7 @@ post_wordcount:
 # Reward
 reward_comment: 觉得文章不错？我要打赏！
 wechatpay: /images/wechatpay.jpg
-alipay: /images/alipay.jpg
+# alipay: /images/alipay.jpeg
 # bitcoin: /images/bitcoin.png
 
 # Declare license on posts
