@@ -29,3 +29,6 @@ categories: 工具
 * *配置过程中遇到一个坑，github生成的token复制到onenote中，粘贴时默认首字母转换成大写了，导致一直上传失败，怀疑人生 /(ㄒoㄒ)/~~*
 
 ![3.jpg](https://raw.githubusercontent.com/itlilei/pic/master/3.jpg?token=AEM2KM2RN4Z6JDKJBDODWBC5DRM6O)
+
+
+总结：配置完成后，写教程和文章，随时截图，直接粘贴图片链接，效率杠杠的。
