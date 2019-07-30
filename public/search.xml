@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[koa 使用mysql教程]]></title>
+    <url>%2F2019%2F07%2F30%2FFE%20%2Fnode%2Fkoa%E4%BD%BF%E7%94%A8mysql%E6%95%99%E7%A8%8B%2F</url>
+    <content type="text"><![CDATA[基础方法安装： npm install --save mysql 12345678910111213141516171819202122232425const Koa =require('koa')const app =new Koa()const mysql =require('mysql')//创建连接池const pool=mysql.createPool(&#123; host:'127.0.0.1', user:'root', password:'数据库密码', database:'数据库'&#125;)pool.getConnection((err,connection)=&gt;&#123; connection.query('select * from user',(err,res)=&gt;&#123; if(err)&#123; console.log(err.message) return &#125; console.log(res) &#125;) connection.release()&#125;)app.listen(5000)console.log('server begin ...') 执行结果： createPoolCluster 连接池集群]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+        <tag>node</tag>
+        <tag>koa</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[koa解决跨域问题]]></title>
+    <url>%2F2019%2F07%2F30%2FFE%20%2Fnode%2Fkoa%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[使用koa2-cors模块先安装 npm install --save koa2-cors 使用方法：1234567891011const Koa =require('koa')const cors=require('koa2-cors')const router = require('koa-router')(); var app=new Koa()app.use(cors())router.get('/index',ctx=&gt;&#123; ctx.body=&#123;name:'koa'&#125;&#125;) app.use(router.routes(),router.allowedMethods())app.listen('5000') 在浏览器中随便打开一个网页，控制台调用（api.jd.com 本地做了host配置映射到 127.0.0.1），也在浏览器的Network模块查看返回结果： 复杂用法：也可对请求添加各种个性化参数配置12345678910111213app.use(cors(&#123; origin: function (ctx) &#123; if (ctx.url === '/test') &#123; return "*"; // 允许来自所有域名请求 &#125; return 'http://api.jd.com:5000'; / 这样就能只允许 http://api.jd.com:5000 这个域名的请求了 &#125;, exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'], maxAge: 5, credentials: true, allowMethods: ['GET', 'POST', 'DELETE'], allowHeaders: ['Content-Type', 'Authorization', 'Accept']&#125;)) 实现原理，即用原生node实现1234567891011121314151617181920212223242526272829303132333435363738394041app.use(async (ctx, next) =&gt; &#123; // 允许来自所有域名请求 ctx.set("Access-Control-Allow-Origin", "*"); // 这样就能只允许 http://localhost:8080 这个域名的请求了 // ctx.set("Access-Control-Allow-Origin", "http://localhost:8080"); // 设置所允许的HTTP请求方法 ctx.set("Access-Control-Allow-Methods", "OPTIONS, GET, PUT, POST, DELETE"); // 字段是必需的。它也是一个逗号分隔的字符串，表明服务器支持的所有头信息字段. ctx.set("Access-Control-Allow-Headers", "x-requested-with, accept, origin, content-type"); // 服务器收到请求以后，检查了Origin、Access-Control-Request-Method和Access-Control-Request-Headers字段以后，确认允许跨源请求，就可以做出回应。 // Content-Type表示具体请求中的媒体类型信息 ctx.set("Content-Type", "application/json;charset=utf-8"); // 该字段可选。它的值是一个布尔值，表示是否允许发送Cookie。默认情况下，Cookie不包括在CORS请求之中。 // 当设置成允许请求携带cookie时，需要保证"Access-Control-Allow-Origin"是服务器有的域名，而不能是"*"; ctx.set("Access-Control-Allow-Credentials", true); // 该字段可选，用来指定本次预检请求的有效期，单位为秒。 // 当请求方法是PUT或DELETE等特殊方法或者Content-Type字段的类型是application/json时，服务器会提前发送一次请求进行验证 // 下面的的设置只本次验证的有效时间，即在该时间段内服务端可以不用进行验证 ctx.set("Access-Control-Max-Age", 300); /* CORS请求时，XMLHttpRequest对象的getResponseHeader()方法只能拿到6个基本字段： Cache-Control、 Content-Language、 Content-Type、 Expires、 Last-Modified、 Pragma。 */ // 需要获取其他字段时，使用Access-Control-Expose-Headers， // getResponseHeader('myData')可以返回我们所需的值 ctx.set("Access-Control-Expose-Headers", "myData"); await next();&#125;) 注释掉上文中的 app.use(cors()) 部分，替换成原生node实现，调用方法同上，效果是一致的,根据实际需要，设置不同的参数配置。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+        <tag>node</tag>
+        <tag>koa</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Node 常用模块]]></title>
+    <url>%2F2019%2F07%2F29%2FFE%20%2Fnode%2Fnode%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97%2F</url>
+    <content type="text"><![CDATA[uuid生成uuid唯一标识,数据库唯一标识字段常用。先安装：npm install --save uuid 使用：123const uuid =require('uuid')let id=uuid.v1() //基于时间戳生成 （time-based）let id2=uuid.v4() //随机生成 (random)]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[koa 使用redis教程]]></title>
     <url>%2F2019%2F07%2F25%2FFE%20%2Fnode%2Fkoa%20%E4%BD%BF%E7%94%A8%20redis%E6%95%99%E7%A8%8B%2F</url>
     <content type="text"><![CDATA[安装教程1.安装redisbrew install redis 2.启动服务端redis-server 启动成功后如下图所示： 3.mac 下安装redis管理工具 rdm （安装包网上很多，搜索下载即可，windows下同理） 安装完成后： name自己取一个，host 为本机host，点击ok即可 redis命令及教程可参考：https://www.runoob.com/redis/redis-keys.html koa 中使用redis1.安装redisnpm install redis koa-redis --save 2.使用redis12345678910111213141516171819const Koa =require('koa')const app =new Koa()const redis=require('redis')const redisStore =require('koa-redis')//服务器的ip和端口号 var client=redis.createClient(6379,'127.0.0.1')var store=redisStore(&#123; client:client, db:'db0'&#125;)app.use(async (ctx)=&gt;&#123; await store.client.set('word','first success') ctx.body=await store.client.get('word')&#125;)app.listen(5000)console.log('node of koa server is starting at port 5000') 浏览器中访问 localhost:5000，在rdm中查看存储的值“word” Redis支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及zset(sorted set：有序集合) 操作其他数据类型参考上面的教程链接]]></content>
@@ -31,14 +65,6 @@
       <tags>
         <tag>mac</tag>
       </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Node 常用模块]]></title>
-    <url>%2F2019%2F07%2F23%2FFE%20%2Fnode%2Fnode%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97%2F</url>
-    <content type="text"><![CDATA[ew]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
   </entry>
   <entry>
     <title></title>
@@ -90,6 +116,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[git常用命令及问题汇总]]></title>
+    <url>%2F2019%2F07%2F09%2FTools%2Fgit%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB%2F</url>
+    <content type="text"><![CDATA[整理了一些我常用的命令及遇到的问题，供参考。 Git配置ssh配置你的用户名和邮箱：12$ git config --global user.name "name"$ git config --global user.email "email@163.com" 生成ssh 1ssh-keygen -t rsa -C "your_email@youremail.com" Creates a new ssh key using the provided email # Generating public/private rsa # key pair.Enter file in which to save the key (/home/you/.ssh/id_rsa): 然后按两次Enter键 查看生成的公钥1cat ~/.ssh/id_rsa.pub 然后复制key到github或者gitlab 里 验证是否正常： 1ssh -T git@github.com git commit 提交添加表情提交引入表情 记录一目了然。使用方法： 1git commit -m':tada: 提交内容说明']]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[解决hexo无法提交备份theme主题目录]]></title>
     <url>%2F2019%2F07%2F09%2FTools%2Fhexo%E4%B8%BB%E9%A2%98theme%E6%97%A0%E6%B3%95%E6%8F%90%E4%BA%A4%2F</url>
     <content type="text"><![CDATA[问题描述：提交代码到github后，在新的电脑clone项目时发现之前配置的样式丢失，然后才发现主题文件是空的。 解决办法：1git rm --cached themes/next #next为你的主题名 然后重新提交即可（ 如果还不行，看下改目录下是否有.git 隐藏文件夹，删除后 重新执行清除缓存操作。） 问题原因：因为我的项目是clone的官方项目，相当于一个子项目，这里用到了git 的子模块（git submodule）功能，子模块只是一个 HEAD 指针，指向子模块的 commit。相当于把一个大项目分成多个小项目，尽可能减少项目之间的关联，方便调试和修改。 关于子模块的详细描述，参考文档： https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97]]></content>
@@ -98,17 +135,6 @@
       </categories>
       <tags>
         <tag>hexo</tag>
-        <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[git常用命令及问题汇总]]></title>
-    <url>%2F2019%2F07%2F09%2FTools%2Fgit%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB%2F</url>
-    <content type="text"><![CDATA[整理了一些我常用的命令及遇到的问题，供参考。 Git配置ssh配置你的用户名和邮箱：12$ git config --global user.name "name"$ git config --global user.email "email@163.com" 生成ssh 1ssh-keygen -t rsa -C "your_email@youremail.com" Creates a new ssh key using the provided email # Generating public/private rsa # key pair.Enter file in which to save the key (/home/you/.ssh/id_rsa): 然后按两次Enter键 查看生成的公钥1cat ~/.ssh/id_rsa.pub 然后复制key到github或者gitlab 里 验证是否正常： 1ssh -T git@github.com git commit 提交添加表情提交引入表情 记录一目了然。使用方法： 1git commit -m':tada: 提交内容说明']]></content>
-      <categories>
-        <category>工具</category>
-      </categories>
-      <tags>
         <tag>git</tag>
       </tags>
   </entry>
